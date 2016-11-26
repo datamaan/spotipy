@@ -475,6 +475,27 @@ class Spotify(object):
         return self._delete("users/%s/playlists/%s/tracks" % (user, plid),
                 payload = payload)
 
+    def user_playlist_follow(self, owner_id, playlist_id):
+        '''Add the current user as a follower of a playlist.
+
+        Parameters:
+            - owner_id: id of the owner of the playlist
+            - playlist_id: the id of the playlist to follow
+        '''
+        plid = self._get_id('playlist', playlist_id)
+        return self._put("users/%s/playlists/%s/followers" % (owner_id, plid))
+
+    def user_playlist_unfollow(self, owner_id, playlist_id):
+        '''Remove the current user as a follower of a playlist.
+
+        Parameters:
+            - owner_id: id of the owner of the playlist
+            - playlist_id: the id of the playlist to unfollow
+        '''
+        plid = self._get_id('playlist', playlist_id)
+        return self._delete("users/%s/playlists/%s/followers" % (owner_id, plid))
+
+
     def me(self):
         ''' Get detailed profile information about the current user.
             An alias for the 'current_user' method.
