@@ -540,6 +540,24 @@ class Spotify(object):
         '''
         return self._get('me/following', type='artist', limit=limit, after=after)
 
+    def current_user_artists_follow(self, artist_ids=[]):
+        '''Start following the artist
+
+        Parameters:
+            - artist_ids: list of ids of the artists to follow
+        '''
+        alist = [self._get_id('artist', a) for a in artist_ids]
+        self._put("me/following?type=artist&ids=%s" % ','.join(alist))
+
+    def current_user_artists_unfollow(self, artist_ids=[]):
+        '''Stop following the artist
+
+        Parameters:
+            - artist_ids: list of ids of the artists to unfollow
+        '''
+        alist = [self._get_id('artist', a) for a in artist_ids]
+        self._delete("me/following?type=artist&ids=%s" % ','.join(alist))
+
     def current_user_saved_tracks_delete(self, tracks=[]):
         ''' Remove one or more tracks from the current user's
             "Your Music" library.
