@@ -568,6 +568,16 @@ class Spotify(object):
         tlist = [self._get_id('track', t) for t in tracks]
         return self._delete('me/tracks/?ids=' + ','.join(tlist))
 
+    def current_user_saved_albums_delete(self, albums=[]):
+        ''' Remove one or more albums from the current user's
+            "Your Music" library.
+
+            Parameters:
+                - albums - a list of album URIs, URLs or IDs
+        '''
+        alist = [self._get_id('album', a) for a in albums]
+        return self._delete('me/albums/?ids=' + ','.join(alist))
+
     def current_user_saved_tracks_contains(self, tracks=[]):
         ''' Check if one or more tracks is already saved in
             the current Spotify user’s “Your Music” library.
